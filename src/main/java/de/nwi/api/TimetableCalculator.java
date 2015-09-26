@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface TimetableCalculator {
     List<Timetable> getAllPossibleTimetables();
+
     List<Lecture> getAllLectures();
 
 

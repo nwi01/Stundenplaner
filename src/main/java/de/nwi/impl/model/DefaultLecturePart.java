@@ -17,11 +17,11 @@ public class DefaultLecturePart implements LecturePart {
     private Weekday weekday;
     private String lectureName;
 
-    public DefaultLecturePart(){
+    public DefaultLecturePart() {
 
     }
 
-    public DefaultLecturePart(LocalTime startTime, LocalTime endTime, Location location, Weekday weekday, String lectureName){
+    public DefaultLecturePart(LocalTime startTime, LocalTime endTime, Location location, Weekday weekday, String lectureName) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
@@ -70,8 +70,8 @@ public class DefaultLecturePart implements LecturePart {
     @Override
     public int compareTo(LecturePart o) {
         if (this.getStartTime().isBefore(o.getStartTime())) return -1;
-        if(o.getStartTime().equals(this.getStartTime())) return 0;
-        if(this.getStartTime().isAfter(o.getStartTime())) return 1;
+        if (o.getStartTime().equals(this.getStartTime())) return 0;
+        if (this.getStartTime().isAfter(o.getStartTime())) return 1;
         return 0;
     }
 }

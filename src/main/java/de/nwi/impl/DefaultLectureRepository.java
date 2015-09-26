@@ -251,86 +251,86 @@ public class DefaultLectureRepository implements LectureRepository {
         List<List<LecturePart>> list = new ArrayList<>();
         List<LecturePart> variableLectureParts = createLecturePartList(
                 new DefaultLecturePart(
-                        LocalTime.of(10,15),
-                        LocalTime.of(11,45),
+                        LocalTime.of(10, 15),
+                        LocalTime.of(11, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.MONDAY,
                         "Berechenbarkeit und Komplexität"),
                 new DefaultLecturePart(
-                        LocalTime.of(14,15),
-                        LocalTime.of(15,45),
+                        LocalTime.of(14, 15),
+                        LocalTime.of(15, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.MONDAY,
                         "Berechenbarkeit und Komplexität"),
                 new DefaultLecturePart(
-                        LocalTime.of(16,15),
-                        LocalTime.of(17,45),
+                        LocalTime.of(16, 15),
+                        LocalTime.of(17, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.MONDAY,
                         "Berechenbarkeit und Komplexität"),
                 new DefaultLecturePart(
-                        LocalTime.of(8,30),
-                        LocalTime.of(10,00),
+                        LocalTime.of(8, 30),
+                        LocalTime.of(10, 00),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.TUESDAY,
                         "Berechenbarkeit und Komplexität"),
                 new DefaultLecturePart(
-                        LocalTime.of(12,15),
-                        LocalTime.of(13,45),
+                        LocalTime.of(12, 15),
+                        LocalTime.of(13, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.TUESDAY,
                         "Berechenbarkeit und Komplexität"),
                 new DefaultLecturePart(
-                        LocalTime.of(10,15),
-                        LocalTime.of(11,45),
+                        LocalTime.of(10, 15),
+                        LocalTime.of(11, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.WEDNESDAY,
                         "Berechenbarkeit und Komplexität"),
                 new DefaultLecturePart(
-                        LocalTime.of(12,15),
-                        LocalTime.of(13,45),
+                        LocalTime.of(12, 15),
+                        LocalTime.of(13, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.WEDNESDAY,
                         "Berechenbarkeit und Komplexität"),
                 new DefaultLecturePart(
-                        LocalTime.of(14,15),
-                        LocalTime.of(15,45),
+                        LocalTime.of(14, 15),
+                        LocalTime.of(15, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.WEDNESDAY,
                         "Berechenbarkeit und Komplexität"),
                 new DefaultLecturePart(
-                        LocalTime.of(16,15),
-                        LocalTime.of(17,45),
+                        LocalTime.of(16, 15),
+                        LocalTime.of(17, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.WEDNESDAY,
                         "Berechenbarkeit und Komplexität"),
                 new DefaultLecturePart(
-                        LocalTime.of(14,15),
-                        LocalTime.of(15,45),
+                        LocalTime.of(14, 15),
+                        LocalTime.of(15, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.THURSDAY,
                         "Berechenbarkeit und Komplexität"),
                 new DefaultLecturePart(
-                        LocalTime.of(16,15),
-                        LocalTime.of(17,45),
+                        LocalTime.of(16, 15),
+                        LocalTime.of(17, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.THURSDAY,
                         "Berechenbarkeit und Komplexität"),
                 new DefaultLecturePart(
-                        LocalTime.of(8,30),
-                        LocalTime.of(10,0),
+                        LocalTime.of(8, 30),
+                        LocalTime.of(10, 0),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.FRIDAY,
                         "Berechenbarkeit und Komplexität"),
                 new DefaultLecturePart(
-                        LocalTime.of(10,15),
-                        LocalTime.of(11,45),
+                        LocalTime.of(10, 15),
+                        LocalTime.of(11, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.FRIDAY,
                         "Berechenbarkeit und Komplexität"),
                 new DefaultLecturePart(
-                        LocalTime.of(12,15),
-                        LocalTime.of(13,45),
+                        LocalTime.of(12, 15),
+                        LocalTime.of(13, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.FRIDAY,
                         "Berechenbarkeit und Komplexität")
@@ -364,9 +364,9 @@ public class DefaultLectureRepository implements LectureRepository {
         return lectures;
     }
 
-    private List<LecturePart> createLecturePartList(LecturePart... lectureParts){
+    private List<LecturePart> createLecturePartList(LecturePart... lectureParts) {
         List<LecturePart> lecturePartList = new ArrayList<LecturePart>();
-        for(LecturePart lecturePart : lectureParts){
+        for (LecturePart lecturePart : lectureParts) {
             lecturePartList.add(lecturePart);
         }
 

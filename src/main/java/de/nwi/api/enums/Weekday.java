@@ -12,11 +12,11 @@ public enum Weekday {
 
     private String name;
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    Weekday(String name){
+    Weekday(String name) {
         this.name = name;
     }
 }

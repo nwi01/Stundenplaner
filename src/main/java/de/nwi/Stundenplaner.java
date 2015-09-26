@@ -19,14 +19,14 @@ public class Stundenplaner {
 
     private static LectureRepository repository = new DefaultLectureRepository();
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         TimetableCalculator calculator = new DefaultTimetableCalculator(
                 repository.getAllLectures(),
                 QUANTITY_LECTURES, QUANTITY_DAYS);
         List<Timetable> possibleTimetables = calculator.getAllPossibleTimetables();
 
-        if(possibleTimetables != null && !possibleTimetables.isEmpty()){
-            for(Timetable timetable : possibleTimetables){
+        if (possibleTimetables != null && !possibleTimetables.isEmpty()) {
+            for (Timetable timetable : possibleTimetables) {
                 System.out.println(timetable);
             }
             System.out.println("###############");

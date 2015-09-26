@@ -10,6 +10,7 @@ import java.util.List;
  * Created by niels on 24.09.2015.
  */
 public interface Timetable {
-    public LinkedHashMap<Weekday,DayTask> getAllDayTasks();
-    public void setDayTasks(LinkedHashMap<Weekday,DayTask> dayTasks);
+    public LinkedHashMap<Weekday, DayTask> getAllDayTasks();
+
+    public void setDayTasks(LinkedHashMap<Weekday, DayTask> dayTasks);
 }

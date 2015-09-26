@@ -13,19 +13,19 @@ import java.util.*;
  * Created by niels on 24.09.2015.
  */
 public class DefaultTimetable implements Timetable {
-    private LinkedHashMap<Weekday,DayTask> dayTasks = new LinkedHashMap<Weekday, DayTask>();
+    private LinkedHashMap<Weekday, DayTask> dayTasks = new LinkedHashMap<Weekday, DayTask>();
     private static final String SEPARATOR = "################\n";
 
-    public LinkedHashMap<Weekday,DayTask> getAllDayTasks() {
+    public LinkedHashMap<Weekday, DayTask> getAllDayTasks() {
         return dayTasks;
     }
 
-    public void setDayTasks(LinkedHashMap<Weekday,DayTask> dayTasks) {
+    public void setDayTasks(LinkedHashMap<Weekday, DayTask> dayTasks) {
         this.dayTasks = dayTasks;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder builder = new StringBuilder();
         builder
                 .append("\n")
@@ -33,7 +33,7 @@ public class DefaultTimetable implements Timetable {
                 .append("Stundenplan\n")
                 .append(SEPARATOR);
         dayTasks.forEach((w, t) -> {
-            if(!t.getAllLecturePartsForDay().isEmpty()){
+            if (!t.getAllLecturePartsForDay().isEmpty()) {
                 builder.append(w.getName() + "\n");
                 List<LecturePart> lectureParts = t.getAllLecturePartsForDay();
                 Collections.sort(lectureParts);
@@ -48,17 +48,17 @@ public class DefaultTimetable implements Timetable {
         return builder.toString();
     }
 
-    public static Timetable from(List<Lecture> lectures){
+    public static Timetable from(List<Lecture> lectures) {
         Timetable timetable = new DefaultTimetable();
 
-        LinkedHashMap<Weekday,DayTask> dayTasks = new LinkedHashMap<Weekday,DayTask>();
+        LinkedHashMap<Weekday, DayTask> dayTasks = new LinkedHashMap<Weekday, DayTask>();
 
-        for(Weekday weekday : Weekday.values()){
-            DayTask dayTask = new DefaultDayTasks();
+        for (Weekday weekday : Weekday.values()) {
+            DayTask dayTask = new DefaultDayTask();
             List<LecturePart> lectureParts = new ArrayList<LecturePart>();
-            for(Lecture lecture : lectures){
-                for(LecturePart lecturePart : lecture.getLectureParts()){
-                    if(lecturePart.getWeekday().equals(weekday)){
+            for (Lecture lecture : lectures) {
+                for (LecturePart lecturePart : lecture.getLectureParts()) {
+                    if (lecturePart.getWeekday().equals(weekday)) {
                         lectureParts.add(lecturePart);
                     }
                 }
@@ -67,7 +67,32 @@ public class DefaultTimetable implements Timetable {
             dayTasks.put(weekday, dayTask);
         }
 
+        List<LecturePart> optionalLectureParts = getOptionalLecturePartsForLecture(lectures);
+        for (LecturePart optLecturePart : optionalLectureParts) {
+            DayTask dayTaskTemp = dayTasks.get(optLecturePart.getWeekday());
+            if (dayTaskTemp != null) {
+                // Falls es noch kein optionalDayTask ist
+                if (!(dayTaskTemp instanceof OptionalDayTask)) {
+                    dayTasks.put(
+                            optLecturePart.getWeekday(),
+                            new OptionalDayTask(dayTaskTemp, optLecturePart));
+                } else {
+                    ((OptionalDayTask) dayTaskTemp).addOptionalLecturePart(optLecturePart);
+                }
+            }
+        }
+
         timetable.setDayTasks(dayTasks);
-        return  timetable;
+        return timetable;
+    }
+
+    /**
+     * Muss alle optionalen LectureParts die Moeglich sind identifizieren und zurueckliefern
+     * TODO: geht nur mit einer Liste
+     *
+     * @param lectures
+     */
+    private static List<LecturePart> getOptionalLecturePartsForLecture(List<Lecture> lectures) {
+        throw new RuntimeException("Noch nicht implementiert");
     }
 }

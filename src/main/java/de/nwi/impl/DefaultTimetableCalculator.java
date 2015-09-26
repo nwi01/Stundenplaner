@@ -9,7 +9,6 @@ import de.nwi.impl.model.DefaultTimetable;
 import org.paukov.combinatorics.Factory;
 import org.paukov.combinatorics.Generator;
 import org.paukov.combinatorics.ICombinatoricsVector;
-import sun.nio.cs.Surrogate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,16 +104,30 @@ public class DefaultTimetableCalculator implements TimetableCalculator {
         List<LecturePart> allLectureParts = new ArrayList<>();
         lectures.forEach((l) -> allLectureParts.addAll(l.getLectureParts()));
 
-        lectures.forEach((l) -> {
-            if(l.getVariableLectureParts() != null && !l.getVariableLectureParts().isEmpty()){
 
+        //TODO: Funktioniert nur, wenn nicht mehr als eine Vorlesung variable LectureParts besitzt
+        //Fuer jede variableLectureParts
+        for (Lecture lecture : lectures) {
+            if (lecture.getVariableLectureParts() != null && !lecture.getVariableLectureParts().isEmpty()) {
+                for (LecturePart variableLecturePart : lecture.getVariableLectureParts().get(0)) {
+                    // alle anderen LectureParts pruefen, ob es eine Ueberschneidung gibt
+                    boolean overlappingFound = false;
+                    for (Lecture lectureToCheck : lectures) {
+                        for (LecturePart lecturePartToCheck : lectureToCheck.getLectureParts()) {
+                            if (isLecturePartOverlapping(variableLecturePart, lecturePartToCheck))
+                                overlappingFound = true;
+                        }
+                    }
+                    // Falls keine ueberschneidung gefunden wurde
+                    if (!overlappingFound) return false;
+                }
             }
-        });
+        }
         return false;
     }
 
     private boolean isLecturePartOverlapping(LecturePart lecturePart, LecturePart otherLecturePart) {
-        if(!lecturePart.getWeekday().equals(otherLecturePart.getWeekday())) return false;
+        if (!lecturePart.getWeekday().equals(otherLecturePart.getWeekday())) return false;
         boolean startTimesAreEqual = lecturePart.getStartTime().equals(otherLecturePart.getStartTime());
         boolean endTimesAreEqual = lecturePart.getEndTime().equals(otherLecturePart.getEndTime());
         return  // 10:00 - 11:00 | 10:00 - 11:00
@@ -139,5 +152,22 @@ public class DefaultTimetableCalculator implements TimetableCalculator {
 
     public void setPossibleTimetables(List<Timetable> possibleTimetables) {
         this.possibleTimetables = possibleTimetables;
+    }
+
+    public class BooleanStore {
+        private boolean booleanValue;
+
+        public BooleanStore(boolean booleanValue) {
+            this.setBooleanValue(booleanValue);
+        }
+
+
+        public boolean isBooleanValue() {
+            return booleanValue;
+        }
+
+        public void setBooleanValue(boolean booleanValue) {
+            this.booleanValue = booleanValue;
+        }
     }
 }

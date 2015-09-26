@@ -14,11 +14,11 @@ public class DefaultLecture implements Lecture {
     private List<LecturePart> lectureParts;
     private List<List<LecturePart>> variableLectureParts = new ArrayList<>();
 
-    public DefaultLecture(){
+    public DefaultLecture() {
 
     }
 
-    public DefaultLecture(String name, List<LecturePart> lectureParts, List<List<LecturePart>> variableLectureParts){
+    public DefaultLecture(String name, List<LecturePart> lectureParts, List<List<LecturePart>> variableLectureParts) {
         this.name = name;
         this.lectureParts = lectureParts;
         this.variableLectureParts = variableLectureParts;

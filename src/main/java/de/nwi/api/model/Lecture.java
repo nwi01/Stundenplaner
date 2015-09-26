@@ -7,11 +7,16 @@ import java.util.List;
  */
 public interface Lecture {
     String getName();
+
     // Einzelne Vorlesungstermine
     List<LecturePart> getLectureParts();
+
     public void setName(String name);
+
     public void setLectureParts(List<LecturePart> lectureParts);
+
     // Liste von Listen mit Elementen, bei denen nur eins gewählt werden muss
     List<List<LecturePart>> getVariableLectureParts();
+
     void setVariableLectureParts(List<List<LecturePart>> list);
 }

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by niels on 24.09.2015.
  */
-public class DefaultDayTasks implements DayTask {
+public class DefaultDayTask implements DayTask {
     private Weekday weekday;
     private List<LecturePart> lecturePartsForDay;
 

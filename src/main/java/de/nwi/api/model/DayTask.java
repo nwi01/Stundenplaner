@@ -9,6 +9,7 @@ import java.util.List;
  */
 public interface DayTask {
     Weekday getWeekDay();
+
     List<LecturePart> getAllLecturePartsForDay();
 
     void setWeekday(Weekday weekday);
