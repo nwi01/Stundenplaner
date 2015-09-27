@@ -3,6 +3,7 @@ package de.nwi.impl;
 import de.nwi.api.enums.Weekday;
 import de.nwi.api.model.Lecture;
 import de.nwi.api.model.LecturePart;
+import de.nwi.api.model.OptionalLecturePart;
 import de.nwi.api.model.Timetable;
 import de.nwi.api.TimetableCalculator;
 import de.nwi.impl.model.DefaultTimetable;
@@ -22,6 +23,10 @@ public class DefaultTimetableCalculator implements TimetableCalculator {
     private int quantityOfLectures = 5;
     private int quantityOfDays = 3;
 
+    public DefaultTimetableCalculator() {
+
+    }
+
     public DefaultTimetableCalculator(List<Lecture> allLectures, int quantityOfLectures, int quantityOfDays) {
         this.allLectures = allLectures;
         this.quantityOfLectures = quantityOfLectures;
@@ -38,7 +43,7 @@ public class DefaultTimetableCalculator implements TimetableCalculator {
     private void calc() {
         List<List<Lecture>> lectureVariations = getLectureVariation(quantityOfLectures);
         for (List<Lecture> lectureVariation : lectureVariations) {
-            if (!areLecturesOverlapping(lectureVariation) && considerQuantityOfDays(lectureVariation)) {
+            if (!areLecturesOverlapping(lectureVariation) && considerQuantityOfDays(lectureVariation) && noConflictsWithOptionalLectureParts(lectureVariation)) {
                 Timetable timetable = DefaultTimetable.from(lectureVariation);
                 possibleTimetables.add(timetable);
             }
@@ -100,33 +105,56 @@ public class DefaultTimetableCalculator implements TimetableCalculator {
                 }
             }
         }
-        // Nun pruefen, ob aus den variableLectureParts LectureParts gibt, die sich ueberlappen
-        List<LecturePart> allLectureParts = new ArrayList<>();
-        lectures.forEach((l) -> allLectureParts.addAll(l.getLectureParts()));
+        return false;
+    }
 
-
+    private boolean noConflictsWithOptionalLectureParts(List<Lecture> lectures) {
         //TODO: Funktioniert nur, wenn nicht mehr als eine Vorlesung variable LectureParts besitzt
         //Fuer jede variableLectureParts
         for (Lecture lecture : lectures) {
-            if (lecture.getVariableLectureParts() != null && !lecture.getVariableLectureParts().isEmpty()) {
-                for (LecturePart variableLecturePart : lecture.getVariableLectureParts().get(0)) {
+            List<OptionalLecturePart> optionalLectureParts = lecture.getVariableLectureParts();
+            if (optionalLectureParts != null && !optionalLectureParts.isEmpty()) {
+                optionalLectureParts = filterForDays(lecture.getVariableLectureParts(), lectures);
+                for (OptionalLecturePart variableLecturePart : optionalLectureParts) {
                     // alle anderen LectureParts pruefen, ob es eine Ueberschneidung gibt
                     boolean overlappingFound = false;
                     for (Lecture lectureToCheck : lectures) {
+                        overlappingFound = false;
                         for (LecturePart lecturePartToCheck : lectureToCheck.getLectureParts()) {
                             if (isLecturePartOverlapping(variableLecturePart, lecturePartToCheck))
                                 overlappingFound = true;
                         }
                     }
-                    // Falls keine ueberschneidung gefunden wurde
-                    if (!overlappingFound) return false;
+                    // Falls eine ueberschneidung gefunden wurde
+                    if (!overlappingFound) return true;
                 }
             }
         }
-        return false;
+        return true;
     }
 
-    private boolean isLecturePartOverlapping(LecturePart lecturePart, LecturePart otherLecturePart) {
+    public List<OptionalLecturePart> filterForDays(List<OptionalLecturePart> opList, List<Lecture> lectures) {
+        List<Weekday> weekdays = getAllDaysForLecture(lectures);
+        List<OptionalLecturePart> optionalLectureParts = new ArrayList<>();
+        opList.forEach((l) -> {
+            if (weekdays.contains(l.getWeekday())) optionalLectureParts.add(l);
+        });
+        return optionalLectureParts;
+    }
+
+    private List<Weekday> getAllDaysForLecture(List<Lecture> lectures) {
+        List<Weekday> weekdays = new ArrayList<>();
+        lectures.forEach((l) -> {
+            l.getLectureParts().forEach((lp) -> {
+                if (!weekdays.contains(lp.getWeekday())) {
+                    weekdays.add(lp.getWeekday());
+                }
+            });
+        });
+        return weekdays;
+    }
+
+    public boolean isLecturePartOverlapping(LecturePart lecturePart, LecturePart otherLecturePart) {
         if (!lecturePart.getWeekday().equals(otherLecturePart.getWeekday())) return false;
         boolean startTimesAreEqual = lecturePart.getStartTime().equals(otherLecturePart.getStartTime());
         boolean endTimesAreEqual = lecturePart.getEndTime().equals(otherLecturePart.getEndTime());

@@ -15,8 +15,8 @@ public interface Lecture {
 
     public void setLectureParts(List<LecturePart> lectureParts);
 
-    // Liste von Listen mit Elementen, bei denen nur eins gewählt werden muss
-    List<List<LecturePart>> getVariableLectureParts();
+    // Liste mit Elementen, bei denen nur eins gewählt werden muss
+    List<OptionalLecturePart> getVariableLectureParts();
 
-    void setVariableLectureParts(List<List<LecturePart>> list);
+    void setVariableLectureParts(List<OptionalLecturePart> list);
 }

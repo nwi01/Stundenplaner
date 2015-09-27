@@ -33,4 +33,11 @@ public class OptionalDayTask extends DefaultDayTask {
     public void addOptionalLecturePart(LecturePart optLecturePart) {
         optionalLectureParts.add(optLecturePart);
     }
+
+    @Override
+    public List<LecturePart> getAllLecturePartsForDay() {
+        List<LecturePart> allLecturePartsWithOptionalParts = super.getAllLecturePartsForDay();
+        allLecturePartsWithOptionalParts.addAll(optionalLectureParts);
+        return allLecturePartsWithOptionalParts;
+    }
 }

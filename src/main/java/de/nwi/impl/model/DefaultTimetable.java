@@ -1,10 +1,8 @@
 package de.nwi.impl.model;
 
 import de.nwi.api.enums.Weekday;
-import de.nwi.api.model.DayTask;
-import de.nwi.api.model.Lecture;
-import de.nwi.api.model.LecturePart;
-import de.nwi.api.model.Timetable;
+import de.nwi.api.model.*;
+import de.nwi.impl.DefaultTimetableCalculator;
 
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -15,6 +13,7 @@ import java.util.*;
 public class DefaultTimetable implements Timetable {
     private LinkedHashMap<Weekday, DayTask> dayTasks = new LinkedHashMap<Weekday, DayTask>();
     private static final String SEPARATOR = "################\n";
+    private static final String OPTIONAL_MARKER = "(Nur eins wählen)";
 
     public LinkedHashMap<Weekday, DayTask> getAllDayTasks() {
         return dayTasks;
@@ -33,15 +32,19 @@ public class DefaultTimetable implements Timetable {
                 .append("Stundenplan\n")
                 .append(SEPARATOR);
         dayTasks.forEach((w, t) -> {
-            if (!t.getAllLecturePartsForDay().isEmpty()) {
+            List<LecturePart> allLecturePartsForDay = t.getAllLecturePartsForDay();
+            if (!allLecturePartsForDay.isEmpty()) {
                 builder.append(w.getName() + "\n");
-                List<LecturePart> lectureParts = t.getAllLecturePartsForDay();
-                Collections.sort(lectureParts);
-                lectureParts.forEach((l) -> {
+                Collections.sort(allLecturePartsForDay);
+                allLecturePartsForDay.forEach((l) -> {
                     builder.append(l.getStartTime().format(DateTimeFormatter.ofPattern("HH:mm")) + "- ")
                             .append(l.getEndTime().format(DateTimeFormatter.ofPattern("HH:mm")))
                             .append("  - " + l.getLectureName())
-                            .append("   (" + l.getLocation() + ")\n");
+                            .append("   (" + l.getLocation() + ")");
+                    if (l instanceof OptionalLecturePart) {
+                        builder.append(" " + OPTIONAL_MARKER);
+                    }
+                    builder.append("\n");
                 });
             }
         });
@@ -87,12 +90,44 @@ public class DefaultTimetable implements Timetable {
     }
 
     /**
-     * Muss alle optionalen LectureParts die Moeglich sind identifizieren und zurueckliefern
+     * Muss alle optionalen LectureParts die moeglich sind identifizieren und zurueckliefern
      * TODO: geht nur mit einer Liste
      *
      * @param lectures
      */
     private static List<LecturePart> getOptionalLecturePartsForLecture(List<Lecture> lectures) {
-        throw new RuntimeException("Noch nicht implementiert");
+        List<LecturePart> possibleOptionalLP = new ArrayList<>();
+
+        for (Lecture lecture : lectures) {
+            List<OptionalLecturePart> optionalLectureParts = lecture.getVariableLectureParts();
+            if (optionalLectureParts != null && !optionalLectureParts.isEmpty()) {
+                // Liste vorhanden, nun pruefen, welche passen
+                possibleOptionalLP.addAll(getPossibleOptionalLectureParts(optionalLectureParts, lectures));
+            }
+        }
+        return possibleOptionalLP;
+    }
+
+    private static List<LecturePart> getPossibleOptionalLectureParts(List<OptionalLecturePart> optionalLectureParts, List<Lecture> lectures) {
+        List<LecturePart> possibleOptionalLP = new ArrayList<>();
+        DefaultTimetableCalculator calculator = new DefaultTimetableCalculator();
+        List<OptionalLecturePart> optionalLecturePartsFiltered = calculator.filterForDays(optionalLectureParts, lectures);
+        // fuer alle optionalen LectureParts
+        for (LecturePart optionalLecturePart : optionalLecturePartsFiltered) {
+            boolean isOptionalLecturePartPossible = true;
+            // pruefen, dass es keine ueberlappung gibt
+            for (Lecture lecture : lectures) {
+                for (LecturePart lecturePart : lecture.getLectureParts()) {
+                    if (calculator.isLecturePartOverlapping(optionalLecturePart, lecturePart)) {
+                        isOptionalLecturePartPossible = false;
+                    }
+                }
+            }
+            if (isOptionalLecturePartPossible) {
+                possibleOptionalLP.add(optionalLecturePart);
+            }
+        }
+
+        return possibleOptionalLP;
     }
 }

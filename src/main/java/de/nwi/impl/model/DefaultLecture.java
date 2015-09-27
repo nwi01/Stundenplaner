@@ -2,6 +2,7 @@ package de.nwi.impl.model;
 
 import de.nwi.api.model.Lecture;
 import de.nwi.api.model.LecturePart;
+import de.nwi.api.model.OptionalLecturePart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +13,13 @@ import java.util.List;
 public class DefaultLecture implements Lecture {
     private String name;
     private List<LecturePart> lectureParts;
-    private List<List<LecturePart>> variableLectureParts = new ArrayList<>();
+    private List<OptionalLecturePart> variableLectureParts = new ArrayList<>();
 
     public DefaultLecture() {
 
     }
 
-    public DefaultLecture(String name, List<LecturePart> lectureParts, List<List<LecturePart>> variableLectureParts) {
+    public DefaultLecture(String name, List<LecturePart> lectureParts, List<OptionalLecturePart> variableLectureParts) {
         this.name = name;
         this.lectureParts = lectureParts;
         this.variableLectureParts = variableLectureParts;
@@ -41,12 +42,12 @@ public class DefaultLecture implements Lecture {
     }
 
     @Override
-    public List<List<LecturePart>> getVariableLectureParts() {
+    public List<OptionalLecturePart> getVariableLectureParts() {
         return variableLectureParts;
     }
 
     @Override
-    public void setVariableLectureParts(List<List<LecturePart>> list) {
+    public void setVariableLectureParts(List<OptionalLecturePart> list) {
         this.variableLectureParts = list;
     }
 }
