@@ -30,7 +30,7 @@ public class Stundenplaner {
                 System.out.println(timetable);
             }
             System.out.println("###############");
-            System.out.println("Es wurden " + possibleTimetables.size() + " Stundepläne erstellt.");
+            System.out.println("Es wurden " + possibleTimetables.size() + " Stundeplï¿½ne erstellt.");
             System.out.println("###############");
         } else {
             System.out.println("Es konnte kein Terminplan zusammengestellt werden.");
