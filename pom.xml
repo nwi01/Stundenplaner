@@ -5,8 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.nwi</groupId>
-    <artifactId>de.nwi.Studenplaner</artifactId>
+    <artifactId>Studenplaner</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <name>Stundenplaner</name>
+    <packaging>jar</packaging>
 
     <build>
 
@@ -20,6 +23,39 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>de.nwi.Stundenplaner</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attached</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
         </plugins>
     </build>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.googlecode.combinatoricslib</groupId>
+            <artifactId>combinatoricslib</artifactId>
+            <version>2.1</version>
+        </dependency>
+    </dependencies>
 </project>
