@@ -130,7 +130,7 @@ public class DefaultTimetableCalculator implements TimetableCalculator {
                 }
             }
         }
-        return true;
+        return false;
     }
 
     public List<OptionalLecturePart> filterForDays(List<OptionalLecturePart> opList, List<Lecture> lectures) {

@@ -1,6 +1,5 @@
 package de.nwi.impl;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import de.nwi.api.LectureRepository;
 import de.nwi.api.enums.Location;
 import de.nwi.api.enums.Weekday;
@@ -13,9 +12,7 @@ import de.nwi.impl.model.DefaultOptionalLecturePart;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Created by niels on 24.09.2015.
@@ -26,14 +23,14 @@ public class DefaultLectureRepository implements LectureRepository {
         List<Lecture> lectures = new ArrayList<Lecture>();
 
         // 1
-        lectures.add(createLecture("IT-Sicherheit 1 - Netzwerksicherheit",
+        lectures.add(createLecture("IT-Sicherheit 1 - Netzwerksicherheit", 6,
                 LocalTime.of(10, 15),
                 LocalTime.of(11, 45),
                 Weekday.MONDAY,
                 LocalTime.of(10, 15),
                 LocalTime.of(11, 45),
                 Weekday.WEDNESDAY));
-        lectures.add(createLecture("Foundations of Data Science",
+        lectures.add(createLecture("Foundations of Data Science", 6,
                 LocalTime.of(16, 15),
                 LocalTime.of(17, 45),
                 Weekday.MONDAY,
@@ -44,7 +41,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(16, 45),
                 Weekday.THURSDAY));
 
-        lectures.add(createLecture("Modellbasierte Softwareentwicklung",
+        lectures.add(createLecture("Modellbasierte Softwareentwicklung", 6,
                 LocalTime.of(10, 15),
                 LocalTime.of(11, 45),
                 Weekday.TUESDAY,
@@ -55,7 +52,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(13, 45),
                 Weekday.THURSDAY));
 
-        lectures.add(createLecture("Advanced Internet Technology",
+        lectures.add(createLecture("Advanced Internet Technology", 6,
                 LocalTime.of(12, 15),
                 LocalTime.of(13, 45),
                 Weekday.TUESDAY,
@@ -63,7 +60,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(15, 45),
                 Weekday.TUESDAY));
 
-        lectures.add(createLecture("Advanced Methods of Cryptography (4,5 Credits)",
+        lectures.add(createLecture("Advanced Methods of Cryptography (4,5 Credits)", 6,
                 LocalTime.of(8, 30),
                 LocalTime.of(10, 0),
                 Weekday.FRIDAY,
@@ -72,12 +69,12 @@ public class DefaultLectureRepository implements LectureRepository {
                 Weekday.FRIDAY));
 
         // 2
-        lectures.add(createLecture("Mobile Radio Networks 1 (4 Credits)",
+        lectures.add(createLecture("Mobile Radio Networks 1 (4 Credits)", 6,
                 LocalTime.of(10, 15),
                 LocalTime.of(12, 30),
                 Weekday.MONDAY));
 
-        lectures.add(createLecture("Virtuelle Realität",
+        lectures.add(createLecture("Virtuelle RealitÃ¤t", 6,
                 LocalTime.of(12, 15),
                 LocalTime.of(13, 45),
                 Weekday.MONDAY,
@@ -88,7 +85,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(14, 0),
                 Weekday.TUESDAY));
 
-        lectures.add(createLecture("Communication Systems Engineering",
+        lectures.add(createLecture("Communication Systems Engineering", 6,
                 LocalTime.of(16, 15),
                 LocalTime.of(17, 45),
                 Weekday.MONDAY,
@@ -99,7 +96,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(15, 45),
                 Weekday.THURSDAY));
 
-        lectures.add(createLecture("Content-based Multimedia Search",
+        lectures.add(createLecture("Content-based Multimedia Search", 6,
                 LocalTime.of(15, 15),
                 LocalTime.of(17, 30),
                 Weekday.TUESDAY,
@@ -107,7 +104,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(17, 45),
                 Weekday.THURSDAY));
 
-        lectures.add(createLecture("Objektorientierte Software-Konstruktion",
+        lectures.add(createLecture("Objektorientierte Software-Konstruktion", 6,
                 LocalTime.of(8, 30),
                 LocalTime.of(10, 0),
                 Weekday.THURSDAY,
@@ -119,7 +116,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 Weekday.FRIDAY));
 
         // 3
-        lectures.add(createLecture("Web Science (4 Credits)",
+        lectures.add(createLecture("Web Science (4 Credits)", 6,
                 LocalTime.of(10, 15),
                 LocalTime.of(11, 45),
                 Weekday.MONDAY,
@@ -127,7 +124,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(11, 45),
                 Weekday.FRIDAY));
 
-        lectures.add(createLecture("Data Mining Algorithmen I",
+        lectures.add(createLecture("Data Mining Algorithmen I", 6,
                 LocalTime.of(16, 15),
                 LocalTime.of(17, 45),
                 Weekday.MONDAY,
@@ -135,7 +132,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(15, 30),
                 Weekday.FRIDAY));
 
-        lectures.add(createLecture("Basic Techniques in Computer Graphics",
+        lectures.add(createLecture("Basic Techniques in Computer Graphics", 6,
                 LocalTime.of(10, 15),
                 LocalTime.of(11, 45),
                 Weekday.TUESDAY,
@@ -149,7 +146,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(13, 45),
                 Weekday.FRIDAY));
 
-        lectures.add(createLecture("Designing Interactive Systems I",
+        lectures.add(createLecture("Designing Interactive Systems I", 6,
                 LocalTime.of(13, 0),
                 LocalTime.of(15, 30),  //CHECKME: Einmalig
                 Weekday.TUESDAY,
@@ -160,7 +157,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(10, 0),
                 Weekday.THURSDAY));
 
-        lectures.add(createLecture("Implementation of Databases",
+        lectures.add(createLecture("Implementation of Databases", 6,
                 LocalTime.of(13, 30),
                 LocalTime.of(15, 00),
                 Weekday.TUESDAY,
@@ -169,7 +166,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 Weekday.THURSDAY));
 
         // 4
-        lectures.add(createLecture("Einführung in statistische Klassifikation (8 Credits)",
+        lectures.add(createLecture("EinfÃ¼hrung in statistische Klassifikation", 8,
                 LocalTime.of(10, 15),
                 LocalTime.of(11, 45),
                 Weekday.MONDAY,
@@ -180,7 +177,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(13, 45),
                 Weekday.THURSDAY));
 
-        lectures.add(createLecture("Automatic Speech Recognition (8Credits)",
+        lectures.add(createLecture("Automatic Speech Recognition", 8,
                 LocalTime.of(16, 15),
                 LocalTime.of(17, 45),
                 Weekday.MONDAY,
@@ -191,7 +188,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(11, 45),
                 Weekday.THURSDAY));
 
-        lectures.add(createLecture("Computer Vision",
+        lectures.add(createLecture("Computer Vision", 6,
                 LocalTime.of(14, 15),
                 LocalTime.of(15, 45),
                 Weekday.TUESDAY,
@@ -200,7 +197,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 Weekday.THURSDAY));
 
         // 5
-        lectures.add(createLecture("Einführung in die technische Informatik",
+        lectures.add(createLecture("EinfÃ¼hrung in die technische Informatik", 6,
                 LocalTime.of(14, 15),
                 LocalTime.of(15, 45),
                 Weekday.MONDAY,
@@ -211,7 +208,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(15, 45),
                 Weekday.THURSDAY));
 
-        lectures.add(createLecture("Concurrency Theory",
+        lectures.add(createLecture("Concurrency Theory", 6,
                 LocalTime.of(10, 15),
                 LocalTime.of(11, 45),
                 Weekday.MONDAY,
@@ -222,7 +219,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(15, 45),
                 Weekday.THURSDAY));
 
-        lectures.add(createLecture("Modellierung und Verifikation probabilistischer Systeme",
+        lectures.add(createLecture("Modellierung und Verifikation probabilistischer Systeme", 6,
                 LocalTime.of(8, 30),
                 LocalTime.of(10, 00),
                 Weekday.TUESDAY,
@@ -233,7 +230,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(15, 45),
                 Weekday.WEDNESDAY));
 
-        lectures.add(createLecture("Dynamische Systeme für Informatiker",
+        lectures.add(createLecture("Dynamische Systeme fÃ¼r Informatiker", 6,
                 LocalTime.of(10, 15),
                 LocalTime.of(11, 45),
                 Weekday.TUESDAY,
@@ -243,7 +240,8 @@ public class DefaultLectureRepository implements LectureRepository {
 
 
         // 6
-        Lecture bukLecture = createLecture("Berechenbarkeit und Komplexität",
+        String bukName =  "Berechenbarkeit und KomplexitÃ¤t";
+        Lecture bukLecture = createLecture(bukName, 6,
                 LocalTime.of(18, 15),
                 LocalTime.of(19, 45),
                 Weekday.MONDAY,
@@ -256,91 +254,91 @@ public class DefaultLectureRepository implements LectureRepository {
                         LocalTime.of(11, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.MONDAY,
-                        "Berechenbarkeit und Komplexität"),
+                        bukName),
                 new DefaultOptionalLecturePart(
                         LocalTime.of(14, 15),
                         LocalTime.of(15, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.MONDAY,
-                        "Berechenbarkeit und Komplexität"),
+                        bukName),
                 new DefaultOptionalLecturePart(
                         LocalTime.of(16, 15),
                         LocalTime.of(17, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.MONDAY,
-                        "Berechenbarkeit und Komplexität"),
+                        bukName),
                 new DefaultOptionalLecturePart(
                         LocalTime.of(8, 30),
                         LocalTime.of(10, 00),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.TUESDAY,
-                        "Berechenbarkeit und Komplexität"),
+                        bukName),
                 new DefaultOptionalLecturePart(
                         LocalTime.of(12, 15),
                         LocalTime.of(13, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.TUESDAY,
-                        "Berechenbarkeit und Komplexität"),
+                        bukName),
                 new DefaultOptionalLecturePart(
                         LocalTime.of(10, 15),
                         LocalTime.of(11, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.WEDNESDAY,
-                        "Berechenbarkeit und Komplexität"),
+                        bukName),
                 new DefaultOptionalLecturePart(
                         LocalTime.of(12, 15),
                         LocalTime.of(13, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.WEDNESDAY,
-                        "Berechenbarkeit und Komplexität"),
+                       bukName),
                 new DefaultOptionalLecturePart(
                         LocalTime.of(14, 15),
                         LocalTime.of(15, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.WEDNESDAY,
-                        "Berechenbarkeit und Komplexität"),
+                        bukName),
                 new DefaultOptionalLecturePart(
                         LocalTime.of(16, 15),
                         LocalTime.of(17, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.WEDNESDAY,
-                        "Berechenbarkeit und Komplexität"),
+                        bukName),
                 new DefaultOptionalLecturePart(
                         LocalTime.of(14, 15),
                         LocalTime.of(15, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.THURSDAY,
-                        "Berechenbarkeit und Komplexität"),
+                        bukName),
                 new DefaultOptionalLecturePart(
                         LocalTime.of(16, 15),
                         LocalTime.of(17, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.THURSDAY,
-                        "Berechenbarkeit und Komplexität"),
+                        bukName),
                 new DefaultOptionalLecturePart(
                         LocalTime.of(8, 30),
                         LocalTime.of(10, 0),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.FRIDAY,
-                        "Berechenbarkeit und Komplexität"),
+                        bukName),
                 new DefaultOptionalLecturePart(
                         LocalTime.of(10, 15),
                         LocalTime.of(11, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.FRIDAY,
-                        "Berechenbarkeit und Komplexität"),
+                        bukName),
                 new DefaultOptionalLecturePart(
                         LocalTime.of(12, 15),
                         LocalTime.of(13, 45),
                         Location.INFORMATIK_ZENTRUM,
                         Weekday.FRIDAY,
-                        "Berechenbarkeit und Komplexität")
+                        bukName)
         );
 
         bukLecture.setVariableLectureParts(variableLectureParts);
         lectures.add(bukLecture);
 
-        lectures.add(createLecture("Advanced Internet Technology",
+        lectures.add(createLecture("Advanced Internet Technology", 6,
                 LocalTime.of(12, 15),
                 LocalTime.of(13, 45),
                 Weekday.TUESDAY,
@@ -351,7 +349,7 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(11, 45),
                 Weekday.WEDNESDAY));
 
-        lectures.add(createLecture("Infinite Computations",
+        lectures.add(createLecture("Infinite Computations (BAC)",0,
                 LocalTime.of(12, 15),
                 LocalTime.of(13, 45),
                 Weekday.THURSDAY,
@@ -361,6 +359,34 @@ public class DefaultLectureRepository implements LectureRepository {
                 LocalTime.of(14, 15),
                 LocalTime.of(15, 45),
                 Weekday.FRIDAY));
+
+        lectures.add(createLecture("EinfÃ¼hrung in High-Performance Computing (BAC nicht Tech.)", 0,
+                LocalTime.of(12, 15),
+                LocalTime.of(13, 45),
+                Weekday.MONDAY,
+                LocalTime.of(14, 15),
+                LocalTime.of(15, 45),
+                Weekday.MONDAY));
+
+        lectures.add(createLecture("Basic Techniques in Computer Graphics  (BAC nicht Tech.)", 0,
+                LocalTime.of(10, 15),
+                LocalTime.of(11, 45),
+                Weekday.TUESDAY,
+                LocalTime.of(15, 15),
+                LocalTime.of(16, 45),
+                Weekday.THURSDAY,
+                LocalTime.of(12, 15),
+                LocalTime.of(13, 45),
+                Weekday.THURSDAY,
+                LocalTime.of(12, 15),
+                LocalTime.of(13, 45),
+                Weekday.FRIDAY));
+
+        lectures.add(createLecture("Angewandte Softwaretechnik im Lebenszyklus der Automobilelektronik (4 Credits)", 4,
+                LocalTime.of(8, 30),
+                LocalTime.of(10, 0),
+                Weekday.FRIDAY));
+
         return lectures;
     }
 
@@ -373,7 +399,7 @@ public class DefaultLectureRepository implements LectureRepository {
     }
 
 
-    private Lecture createLecture(String lectureName,
+    private Lecture createLecture(String lectureName, int rating,
                                   LocalTime start1, LocalTime end1, Weekday w1,
                                   LocalTime start2, LocalTime end2, Weekday w2,
                                   LocalTime start3, LocalTime end3, Weekday w3) {
@@ -399,10 +425,10 @@ public class DefaultLectureRepository implements LectureRepository {
                 w3,
                 lectureName);
         lecturePart.add(lecturePart3);
-        return new DefaultLecture(lectureName, lecturePart, null);
+        return new DefaultLecture(lectureName, lecturePart, null, rating);
     }
 
-    private Lecture createLecture(String lectureName,
+    private Lecture createLecture(String lectureName, int rating,
                                   LocalTime start1, LocalTime end1, Weekday w1,
                                   LocalTime start2, LocalTime end2, Weekday w2,
                                   LocalTime start3, LocalTime end3, Weekday w3,
@@ -436,10 +462,10 @@ public class DefaultLectureRepository implements LectureRepository {
                 w4,
                 lectureName);
         lecturePart.add(lecturePart4);
-        return new DefaultLecture(lectureName, lecturePart, null);
+        return new DefaultLecture(lectureName, lecturePart, null, rating);
     }
 
-    private Lecture createLecture(String lectureName,
+    private Lecture createLecture(String lectureName, int rating,
                                   LocalTime start1, LocalTime end1, Weekday w1,
                                   LocalTime start2, LocalTime end2, Weekday w2) {
         List<LecturePart> lecturePart = new ArrayList<LecturePart>();
@@ -457,10 +483,10 @@ public class DefaultLectureRepository implements LectureRepository {
                 w2,
                 lectureName);
         lecturePart.add(lecturePart2);
-        return new DefaultLecture(lectureName, lecturePart, null);
+        return new DefaultLecture(lectureName, lecturePart, null, rating);
     }
 
-    private Lecture createLecture(String lectureName,
+    private Lecture createLecture(String lectureName, int rating,
                                   LocalTime start1, LocalTime end1, Weekday w1) {
         List<LecturePart> lecturePart = new ArrayList<LecturePart>();
         LecturePart lecturePart1 = new DefaultLecturePart(
@@ -470,6 +496,6 @@ public class DefaultLectureRepository implements LectureRepository {
                 w1,
                 lectureName);
         lecturePart.add(lecturePart1);
-        return new DefaultLecture(lectureName, lecturePart, null);
+        return new DefaultLecture(lectureName, lecturePart, null, rating);
     }
 }

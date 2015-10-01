@@ -1,11 +1,15 @@
 package de.nwi.impl.model;
 
+import de.nwi.Stundenplaner;
 import de.nwi.api.enums.Weekday;
 import de.nwi.api.model.*;
 import de.nwi.impl.DefaultTimetableCalculator;
 
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Created by niels on 24.09.2015.
@@ -13,7 +17,17 @@ import java.util.*;
 public class DefaultTimetable implements Timetable {
     private LinkedHashMap<Weekday, DayTask> dayTasks = new LinkedHashMap<Weekday, DayTask>();
     private static final String SEPARATOR = "################\n";
-    private static final String OPTIONAL_MARKER = "(Nur eins w‰hlen)";
+    private static final String OPTIONAL_MARKER = "(Nur eins w√§hlen)";
+    private List<Lecture> lectures = new ArrayList();
+
+
+    public DefaultTimetable(){
+
+    }
+
+    public DefaultTimetable(List<Lecture> lectures){
+        this.lectures = lectures;
+    }
 
     public LinkedHashMap<Weekday, DayTask> getAllDayTasks() {
         return dayTasks;
@@ -25,12 +39,35 @@ public class DefaultTimetable implements Timetable {
 
     @Override
     public String toString() {
+        if (Stundenplaner.DISPLAY_FULL_INFO) return getFullInfo();
+
+        return getShortInfo();
+    }
+
+    private int getRating(){
+        Integer rating = 0;
+        for(Lecture lecture : lectures){
+            rating += lecture.getRating();
+        }
+        return rating;
+    }
+
+    private StringBuilder getDefaultInfo(){
         StringBuilder builder = new StringBuilder();
-        builder
-                .append("\n")
+        builder.append("\n")
                 .append(SEPARATOR)
                 .append("Stundenplan\n")
                 .append(SEPARATOR);
+
+        builder.append("Vorlesungen: (" + getRating() +" Credits):\n");
+
+                lectures.forEach(l -> builder.append("\t" + l.getName() + "\n"));
+        builder.append("\n");
+        return builder;
+    }
+
+    private String getFullInfo() {
+        StringBuilder builder = getDefaultInfo();
         dayTasks.forEach((w, t) -> {
             List<LecturePart> allLecturePartsForDay = t.getAllLecturePartsForDay();
             if (!allLecturePartsForDay.isEmpty()) {
@@ -51,8 +88,25 @@ public class DefaultTimetable implements Timetable {
         return builder.toString();
     }
 
+    private String getShortInfo() {
+        StringBuilder builder = getDefaultInfo();
+        dayTasks.forEach((w, t) -> {
+            List<LecturePart> allLecturePartsForDay = t.getAllLecturePartsForDay();
+            if (!allLecturePartsForDay.isEmpty()) {
+                builder.append(w.getName() + ": ");
+                Collections.sort(allLecturePartsForDay);
+
+                // Erster Vorlesungsbegin && Letztes Vorlesungsende
+                builder.append(allLecturePartsForDay.get(0).getStartTime().format(DateTimeFormatter.ofPattern("HH:mm")) + "- ")
+                        .append(allLecturePartsForDay.get(allLecturePartsForDay.size() - 1).getEndTime().format(DateTimeFormatter.ofPattern("HH:mm")))
+                        .append("\n");
+            }
+        });
+        return builder.toString();
+    }
+
     public static Timetable from(List<Lecture> lectures) {
-        Timetable timetable = new DefaultTimetable();
+        Timetable timetable = new DefaultTimetable(lectures);
 
         LinkedHashMap<Weekday, DayTask> dayTasks = new LinkedHashMap<Weekday, DayTask>();
 

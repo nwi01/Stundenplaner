@@ -5,9 +5,7 @@ import de.nwi.api.TimetableCalculator;
 import de.nwi.api.model.Timetable;
 import de.nwi.impl.DefaultLectureRepository;
 import de.nwi.impl.DefaultTimetableCalculator;
-import de.nwi.impl.SampleLectureRepository;
 
-import java.sql.Time;
 import java.util.List;
 
 /**
@@ -16,6 +14,7 @@ import java.util.List;
 public class Stundenplaner {
     private static int QUANTITY_LECTURES = 5;
     private static int QUANTITY_DAYS = 3;
+    public static boolean DISPLAY_FULL_INFO = true;
 
     private static LectureRepository repository = new DefaultLectureRepository();
 
@@ -30,10 +29,10 @@ public class Stundenplaner {
                 System.out.println(timetable);
             }
             System.out.println("###############");
-            System.out.println("Es wurden " + possibleTimetables.size() + " Stundepl�ne erstellt.");
+            System.out.println("Es wurden " + possibleTimetables.size() + " Stundepläne erstellt.");
             System.out.println("###############");
         } else {
-            System.out.println("Es konnte kein Terminplan zusammengestellt werden.");
+            System.out.println("Es konnte kein Stundenplan zusammengestellt werden.");
         }
     }
 }
