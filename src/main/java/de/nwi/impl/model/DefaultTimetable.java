@@ -3,7 +3,7 @@ package de.nwi.impl.model;
 import de.nwi.Stundenplaner;
 import de.nwi.api.enums.Weekday;
 import de.nwi.api.model.*;
-import de.nwi.impl.DefaultTimetableCalculator;
+import de.nwi.impl.timetableCalculator.LectureHelper;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -124,7 +124,7 @@ public class DefaultTimetable implements Timetable {
             dayTasks.put(weekday, dayTask);
         }
 
-        List<LecturePart> optionalLectureParts = getOptionalLecturePartsForLecture(lectures);
+        List<LecturePart> optionalLectureParts = new LectureHelper().getOptionalLecturePartsForLecture(lectures);
         for (LecturePart optLecturePart : optionalLectureParts) {
             DayTask dayTaskTemp = dayTasks.get(optLecturePart.getWeekday());
             if (dayTaskTemp != null) {
@@ -141,47 +141,5 @@ public class DefaultTimetable implements Timetable {
 
         timetable.setDayTasks(dayTasks);
         return timetable;
-    }
-
-    /**
-     * Muss alle optionalen LectureParts die moeglich sind identifizieren und zurueckliefern
-     * TODO: geht nur mit einer Liste
-     *
-     * @param lectures
-     */
-    private static List<LecturePart> getOptionalLecturePartsForLecture(List<Lecture> lectures) {
-        List<LecturePart> possibleOptionalLP = new ArrayList<>();
-
-        for (Lecture lecture : lectures) {
-            List<OptionalLecturePart> optionalLectureParts = lecture.getVariableLectureParts();
-            if (optionalLectureParts != null && !optionalLectureParts.isEmpty()) {
-                // Liste vorhanden, nun pruefen, welche passen
-                possibleOptionalLP.addAll(getPossibleOptionalLectureParts(optionalLectureParts, lectures));
-            }
-        }
-        return possibleOptionalLP;
-    }
-
-    private static List<LecturePart> getPossibleOptionalLectureParts(List<OptionalLecturePart> optionalLectureParts, List<Lecture> lectures) {
-        List<LecturePart> possibleOptionalLP = new ArrayList<>();
-        DefaultTimetableCalculator calculator = new DefaultTimetableCalculator();
-        List<OptionalLecturePart> optionalLecturePartsFiltered = calculator.filterForDays(optionalLectureParts, lectures);
-        // fuer alle optionalen LectureParts
-        for (LecturePart optionalLecturePart : optionalLecturePartsFiltered) {
-            boolean isOptionalLecturePartPossible = true;
-            // pruefen, dass es keine ueberlappung gibt
-            for (Lecture lecture : lectures) {
-                for (LecturePart lecturePart : lecture.getLectureParts()) {
-                    if (calculator.isLecturePartOverlapping(optionalLecturePart, lecturePart)) {
-                        isOptionalLecturePartPossible = false;
-                    }
-                }
-            }
-            if (isOptionalLecturePartPossible) {
-                possibleOptionalLP.add(optionalLecturePart);
-            }
-        }
-
-        return possibleOptionalLP;
     }
 }

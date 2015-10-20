@@ -1,10 +1,10 @@
 package de.nwi;
 
 import de.nwi.api.LectureRepository;
-import de.nwi.api.TimetableCalculator;
 import de.nwi.api.model.Timetable;
+import de.nwi.api.timetableCalculation.TimetableCalculator;
 import de.nwi.impl.DefaultLectureRepository;
-import de.nwi.impl.DefaultTimetableCalculator;
+import de.nwi.impl.timetableCalculator.DefaultTimetableCalculator;
 
 import java.util.List;
 
